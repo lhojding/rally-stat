@@ -1,0 +1,40 @@
+
+body {
+    font-size: 75%;
+    font-family: Arial, Helvetica, sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    line-height: normal;
+}
+
+table {
+    align: left;
+}
+
+td.normal {
+    font-weight: normal;
+    font-size: 0.85em;
+}
+
+td.headline {
+    font-weight: bold;
+    background-color:#d0e4fe;
+    font-size: 0.85em;
+}
+
+table thead th {
+    font-weight: bold;
+    font-size: 0.85em;
+}
+
+select {
+    font-size: 0.75em;
+}
+
+input {
+    font-size: 0.75em;
+}
+
+button {
+    font-size: 0.75em;
+}

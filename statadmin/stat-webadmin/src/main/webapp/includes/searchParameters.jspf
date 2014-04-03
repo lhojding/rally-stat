@@ -1,0 +1,54 @@
+<%@ page import="se.uc.stat.web.BaseContainer" %>
+<%@ page import="se.uc.stat.web.TimeStatistics" %>
+<%@ page import="se.uc.stat.web.types.ColumnInfo" %>
+<%@ page import="se.uc.stat.web.webtypes.GUIForm" %>
+<%@ page import="se.uc.stat.web.webtypes.GUIList" %>
+<%@ page import="se.uc.stat.web.webtypes.GUIListRow" %>
+<%
+final BaseContainer container = statistics;
+final GUIForm form = statistics.getGUIForm();
+%>
+<table>
+<%
+for (GUIList list : container.getGUIListList()) {
+// Write one option
+%>
+<tr>
+<td><%=list.getLabel() %></td>
+<td>
+<select name="<%=list.getName() %>">
+<option></option>
+<%
+for (GUIListRow row : list.getList()) {
+// Write one row in the option tag
+final boolean selected = (row.getPresentationId().equals(list.getSelected()));
+final String selectedString = (selected ? "selected=\"selected\" " : "");
+%>
+<option <%=selectedString %>value="<%=row.getPresentationId() %>"><%=row.getPresentationName() %></option>
+<% // End write one row in the option tag
+}
+%>
+</select>
+</td>
+</tr>
+<% // End write one option
+}
+%>
+<tr><td><%= ColumnInfo.PRODUCT.getLabel() %></td><td><input type="text"
+name="<%= ColumnInfo.PRODUCT.getName() %>"
+value="<%=form.getProduct() == null ? "" : form.getProduct() %>"/></td></tr>
+<% if (container.getType().equals(BaseContainer.Type.CUSTOMER)) { %>
+<tr><td><%= ColumnInfo.CUSTOMER.getLabel() %></td><td><input type="text"
+name="<%= ColumnInfo.CUSTOMER.getName() %>"
+value="<%=form.getCustomer() == null ? "" : form.getCustomer() %>"/></td></tr>
+<% } %>
+<tr><td valign="top">Datum</td><td>
+<input type="text" name="fromDate" value="<%=form.getFromDateString() %>"/> - 
+<input type="text" name="toDate" value="<%=form.getToDateString() %>"/><br/>
+Övre tiden exkluderas i sökningen<br/>
+Format <code>yyyy-MM-dd</code> eller <code>yyyy-MM-dd HH:mm</code>
+</td></tr>
+<tr><td valign="top">Max antal rader</td><td>
+<input type="text" name="maxRows" value="<%=form.getMaxRows() %>"/>
+</td></tr>
+</table>

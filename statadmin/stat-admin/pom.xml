@@ -1,0 +1,58 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>se.uc.stat</groupId>
+        <artifactId>statadmin</artifactId>
+        <version>1.2-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>stat-admin</artifactId>
+    <packaging>ear</packaging>
+    <version>1.2-SNAPSHOT</version>
+
+    <name>Stat admin</name>
+    <description>Stat admin deployable unit</description>
+
+    <dependencies>
+        <dependency>
+            <groupId>se.uc.stat</groupId>
+            <artifactId>stat-webadmin</artifactId>
+            <type>war</type>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-ear-plugin</artifactId>
+                <configuration>
+                    <displayName>Stat admin-${artifactId}-${project.version}</displayName>
+                    <version>5</version>
+                    <archive>
+                        <manifest>
+                            <addDefaultSpecificationEntries>
+                                true
+                            </addDefaultSpecificationEntries>
+                            <addDefaultImplementationEntries>
+                                true
+                            </addDefaultImplementationEntries>
+                        </manifest>
+                        <manifestEntries>
+                            <Weblogic-Application-Version>${project.version}</Weblogic-Application-Version>
+                        </manifestEntries>
+                    </archive>
+                    <modules>
+                        <webModule>
+                            <groupId>se.uc.stat</groupId>
+                            <artifactId>stat-webadmin</artifactId>
+                            <contextRoot>statadmin</contextRoot>
+                        </webModule>
+                    </modules>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

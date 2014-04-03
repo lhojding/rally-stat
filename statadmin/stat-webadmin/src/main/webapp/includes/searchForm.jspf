@@ -1,0 +1,45 @@
+<%@ page import="se.uc.stat.web.BaseContainer" %>
+
+<%
+String formName;
+if (statistics.getType().equals(BaseContainer.Type.TIME)) {
+    formName = "TimeStatistics.jsp";
+} else {
+    formName = "CustomerStatistics.jsp";
+}
+%>
+<form name="search" method="post" action="<%=formName %>">
+<table>
+<tr><th>Filtrering</th><th>Sortering och gruppering</th></tr>
+<tr>
+<td valign="top">
+<% { %>
+<%@ include file="searchParameters.jspf" %>
+<% } %>
+</td>
+<td valign="top">
+<% { %>
+<%@ include file="searchSorting.jspf" %>
+<% } %>
+</td>
+</tr>
+<tr>
+<td valign="bottom">
+<button type="submit">Sök</button>
+</td>
+<td>
+Grupperade parametrar kommer alltid före sorterade.<br>
+* Kan ej uteslutas.
+</td>
+</tr>
+</table>
+<table border="1" cellspacing="0">
+<% { %>
+<%@ include file="searchResultHeader.jspf" %>
+<% } %>
+<% { %>
+<%@ include file="searchResultBody.jspf" %>
+<% } %>
+</table>
+Det går bra att kopiera tabellen och klistra in den i Excel om så önskas.
+</form>

@@ -1,0 +1,47 @@
+<%@ page import="se.uc.stat.web.BaseContainer" %>
+<%@ page import="se.uc.stat.web.statistics.ResultCell" %>
+<%@ page import="se.uc.stat.web.statistics.ResultRow" %>
+<%@ page import="se.uc.stat.web.statistics.StatisticsResult" %>
+<%
+final BaseContainer container = statistics;
+final StatisticsResult statisticsResult = container.getStatisticsResult();
+%>
+<tbody>
+<%
+for (ResultRow row : statisticsResult.getResultRows()) {
+%>
+<tr>
+<% if (row.getLeftIndent() > 0) { %>
+<td colspan="<%=row.getLeftIndent() %>">
+<% for (int i = 0; i < row.getLeftIndent(); i++) { %>&nbsp;&nbsp;&nbsp;<% } %>
+</td>
+<%
+} // End left indent
+%>
+<% for (ResultCell cell : row.getCells()) {
+if (cell.isGroupHeadline()) {
+%>
+<td colspan="<%=cell.getColSpan() %>" <%= cell.isRightAligned() ? "align=\"right\"" : "" %> class="headline">
+<% if(cell.getContent()!=null && cell.getContent().length()>0) { %>
+<%=cell.getContent() %>
+<% } else { %>
+&nbsp; <!-- null --> 
+<% } // End if %>
+</td>
+<% } else { %>
+<td colspan="<%=cell.getColSpan() %>" <%= cell.isRightAligned() ? "align=\"right\"" : "" %> class="normal">
+<% if(cell.getContent()!=null && cell.getContent().length()>0) { %>
+<%=cell.getContent() %>
+<% } else { %>
+&nbsp; <!-- null -->
+<% } // End if %>
+</td>
+<%
+} // End if
+} // End cell
+%>
+</tr>
+<%
+} // End row
+%>
+</tbody>

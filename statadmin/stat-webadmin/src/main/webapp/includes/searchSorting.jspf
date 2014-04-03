@@ -1,0 +1,49 @@
+<%@ page import="se.uc.stat.web.BaseContainer" %>
+<%@ page import="se.uc.stat.web.webtypes.GUIForm" %>
+<%@ page import="se.uc.stat.web.webtypes.GUISort" %>
+<%@ page import="se.uc.stat.web.webtypes.GUISortOrderListRow" %>
+<%@ page import="se.uc.stat.web.webtypes.GUISortParameterListRow" %>
+<%@ page import="se.uc.stat.web.webtypes.GUISortRow" %>
+<%
+final GUISort sort = statistics.getGUIForm().getSort();
+%>
+<table>
+<%
+for (GUISortRow sortRow : sort.getSortRows()) {
+%>
+<tr>
+<td><%=sortRow.getLabel() %></td>
+<td>
+<select name="<%=sortRow.getParameterName() %>">
+<option></option>
+<% for (GUISortParameterListRow row : sortRow.getParameterRows()) {
+// Write one parameter row in the option tag
+final boolean selected = (row.getName().equals(sortRow.getSelectedParameter()));
+final String selectedString = (selected ? "selected=\"selected\" " : "");
+%>
+<option <%=selectedString %>value="<%=row.getName() %>">
+<%=row.getLabel() %><%=row.isIgnorable() ? "" : "*" %></option>
+<%
+} // End write one parameter row in the option tag
+%>
+</select>
+</td>
+<td>
+<select name="<%=sortRow.getOrderName() %>">
+<% for (GUISortOrderListRow row : sortRow.getOrderRows()) {
+// Write one sort order row in the option tag
+final boolean selected = (row.getName().equals(sortRow.getSelectedOrder()));
+final String selectedString = (selected ? "selected=\"selected\" " : "");
+%>
+<option <%=selectedString %>value="<%=row.getName() %>">
+<%=row.getLabel() %></option>
+<%
+} // End write one sort order row in the option tag
+%>
+</select>
+</td>
+</tr>
+<%
+} // End write one sort parameter block.
+%>
+</table>

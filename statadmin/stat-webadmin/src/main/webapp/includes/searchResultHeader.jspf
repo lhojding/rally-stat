@@ -1,0 +1,23 @@
+<%@ page import="se.uc.stat.web.BaseContainer" %>
+<%@ page import="se.uc.stat.web.statistics.StatisticsResult" %>
+<%@ page import="se.uc.stat.web.statistics.Headlines" %>
+<%@ page import="se.uc.stat.web.statistics.Headline" %>
+<%
+final BaseContainer container = statistics;
+final StatisticsResult statisticsResult = container.getStatisticsResult();
+final Headlines headlines = statisticsResult.getHeadlines();
+%>
+<thead>
+<tr>
+<% for (Headlines.TableCell tableCell : headlines.getTableCellRow1()) { %>
+<th rowspan="<%=tableCell.getRowSpan() %>" colspan="<%=tableCell.getColSpan() %>">
+<%=tableCell.getLabel() %></th>
+<% } // for %>
+</tr>
+<tr>
+<% for (Headlines.TableCell tableCell : headlines.getTableCellRow2()) { %>
+<th rowspan="<%=tableCell.getRowSpan() %>" colspan="<%=tableCell.getColSpan() %>">
+<%=tableCell.getLabel() %></th>
+<% } // for %>
+</tr>
+</thead>

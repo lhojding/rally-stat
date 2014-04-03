@@ -1,0 +1,19 @@
+<configuration scan="true" scanPeriod="5 minutes" debug="true">
+    <appender name="FILE"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>/var/log/uc/media/stat/stat.log</file>
+        <rollingPolicy
+                class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>
+                /var/log/uc/media/stat/stat.%d.log.gz
+            </FileNamePattern>
+            <MaxHistory>180</MaxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%date %-5level %logger %msg [%thread]%n</pattern>
+        </encoder>
+    </appender>
+    <root level="debug">
+        <appender-ref ref="FILE"/>
+    </root>
+</configuration>
